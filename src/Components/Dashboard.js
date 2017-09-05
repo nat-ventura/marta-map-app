@@ -20,42 +20,63 @@ class Dashboard extends Component {
             emptyArray: 0
         };
     }
-}
 
-componentWillMount() {
-
-    this.martaDataGrabber = setInterval( () => {
-        getMartaData().then((jsonData) => {
-            let new_data = [];
-            let emptySignal = [{DESTINATION: 'No trains available at this time.', NEXT_ARR: ' '}];
-            jsonData.map( (data) => {
-                if (data.DIRECTION == this.props.direction && data.STATION == this.props.station) {
-                    new_data.push(data)
-                }
-                return data;
-            })
-            if (new_data.length > 0) {
-                if (new_data.length >= this.state.martaData.length || new_data[0].DIRECTION != this.state.martaData[0].DIRECTION) {
-                    this.setState({
-                        martaData: new_data,
-                        emptyArray: 0
-                    });
-                }
-            } else if (new_data.length == 0) {
-                let size = this.state.emptyArray + 1;
-                this.setState({
-                    emptyArray: size
+    componentWillMount() {
+        this.martaDataGrabber = setInterval( () => {
+            getMartaData().then((jsonData) => {
+                let new_data = [];
+                let emptySignal = [{DESTINATION: 'No trains available at this time.', NEXT_ARR: ' '}];
+                jsonData.map( (data) => {
+                    if (data.DIRECTION == this.props.direction && data.STATION == this.props.station) {
+                        new_data.push(data)
+                    }
+                    return data;
                 })
-                if (this.state.emptyArray >= 3) {
+                if (new_data.length > 0) {
+                    if (new_data.length >= this.state.martaData.length || new_data[0].DIRECTION != this.state.martaData[0].DIRECTION) {
+                        this.setState({
+                            martaData: new_data,
+                            emptyArray: 0
+                        });
+                    }
+                } else if (new_data.length == 0) {
+                    let size = this.state.emptyArray + 1;
                     this.setState({
-                        martaData: emptySignal
+                        emptyArray: size
                     })
+                    if (this.state.emptyArray >= 3) {
+                        this.setState({
+                            martaData: emptySignal
+                        })
+                    }
                 }
-            }
-        })
-        this.setState({
-            localTime: new Date()
-        })
-    }, 1000);
+            })
+            this.setState({
+                localTime: new Date()
+            })
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval( this.martaDataGrabber);
+    }
+
+    render() {
+        let martaOutput = this.state.martaData.map( (item) => {
+            return (
+                <Card station={datum.DESTINATION} time={item.NEXT_ARR} localTime={this.state.localTime}/>
+            )
+        });
+
+        return (
+            <div className='row'>
+                <div className='style-me'>
+                    {martaOutput}
+                </div>
+            </div>
+        )
+    }
+
 }
 
+export default Dashboard;
