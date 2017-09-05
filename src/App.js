@@ -68,11 +68,11 @@ class App extends Component {
               {item.label}
             </div>
           }
-          ref = 'input';
-          value = {this.state.station}
-          onChange = { e => this.setState({ station: e.target.value })}
-          onSelect = { station => this.setState({ station })}
-          onFocus = {(e)} => { console.log(this.refs.input)}}
+          ref='input';
+          value={this.state.station}
+          onChange={ e => this.setState({ station: e.target.value })}
+          onSelect={ station => this.setState({ station })}
+          onFocus={(e) => { console.log(this.refs.input)}}
           />
       </div>
 
