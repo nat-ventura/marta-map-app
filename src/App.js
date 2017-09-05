@@ -19,6 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         this will be a marta map
+        <div>
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
             { id: 'ART CENTER STATION', label: 'ART CENTER STATION' },
@@ -81,7 +82,6 @@ class App extends Component {
     </div>
     );
   }
-  </div>
 
   _update = (event) => {
     this.setState({
