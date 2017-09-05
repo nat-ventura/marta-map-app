@@ -3,28 +3,15 @@ import Projects from './Components/Projects';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      projects: []
-    }
+  constructor(props) {
+    super(props);
   }
 
   componentWillMount(){
-    this.setState({projects: [
-      {
-        title: 'business website',
-        category: 'web design'
-      },
-      {
-        title: 'social app',
-        category: 'mobile development'
-      },
-      {
-        title: 'ecommerce shopping',
-        category: 'web development'
-      }
-    ]})
+    this.setState({
+      station: "FIVE POINTS STATION",
+      direction: "S"
+  });
   }
   // better to use this function than to leave it in the constructor
 
@@ -32,7 +19,43 @@ class App extends Component {
     return (
       <div className="App">
         this will be a marta map
-        <Projects projects={this.state.projects}/>
+          items = {[
+            { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
+            { id: 'ART CENTER STATION', label: 'ART CENTER STATION' },
+            { id: 'ASHBY STATION', label: 'ASHBY STATION' },
+            { id: 'AVONDALE STATION', label: 'AVONDALE STATION' },
+            { id: 'BANKHEAD STATION', label: 'BANKHEAD STATION' },
+            { id: 'BROOKHAVEN STATION', label: 'BROOKHAVEN STATION' },
+            { id: 'BUCKHEAD STATION', label: 'BUCKHEAD STATION' },
+            { id: 'CHAMBLEE STATION', label: 'CHAMBLEE STATION' },
+            { id: 'CIVIC CENTER STATION', label: 'CIVIC CENTER STATION' },
+            { id: 'COLLEGE PARK STATION', label: 'COLLEGE PARK STATION' },
+            { id: 'DECATUR STATION', label: 'DECATUR STATION' },
+            { id: 'PEACHTREE CENTER STATION', label: 'PEACHTREE CENTER STATION' },
+            { id: 'DORAVILLE STATION', label: 'DORAVILLE STATION' },
+            { id: 'DUNWOODY STATION', label: 'DUNWOODY STATION' },
+            { id: 'EAST LAKE STATION', label: 'EAST LAKE STATION' },
+            { id: 'EDGEWOOD STATION', label: 'EDGEWOOD STATION' },
+            { id: 'Five Points', label: 'FIVE POINTS STATION' },
+            { id: 'GARNETT STATION', label: 'GARNETT STATION' },
+            { id: 'H. E. HOLMES STATION', label: 'H. E. HOLMES STATION' },
+            { id: 'INDIAN CREEK STATION', label: 'INDIAN CREEK STATION' },
+            { id: 'KENSINGTON STATION', label: 'KENSINGTON STATION' },
+            { id: 'KING MEMORIAL STATION', label: 'KING MEMORIAL STATION' },
+            { id: 'LENOX STATION', label: 'LENOX STATION' },
+            { id: 'LINDBERGH CENTER STATION', label: 'LINDBERGH CENTER STATION' },
+            { id: 'MEDICAL CENTER STATION', label: 'MEDICAL CENTER STATION' },
+            { id: 'MIDTOWN STATION', label: 'MIDTOWN STATION' },
+            { id: 'NORTH AVENUE STATION', label: 'NORTH AVENUE STATION' },
+            { id: 'NORTH SPRINGS STATION', label: 'NORTH SPRINGS STATION' },
+            { id: 'OAKLAND CITY STATION', label: 'OAKLAND CITY STATION' },
+            { id: 'SANDY SPRINGS STATION', label: 'SANDY SPRINGS STATION' },
+            { id: 'WEST END STATION', label: 'WEST END STATION' },
+            { id: 'WEST LAKE STATION', label: 'WEST LAKE STATION' },
+            { id: 'bar', label: 'bar' },
+            { id: 'baz', label: 'baz' }
+          ]}
+          shouldItemRender = {(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
       </div>
       // everything has to be inside one div-- or one main element
     );
