@@ -20,6 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>
+        <Autocomplete
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
             { id: 'ART CENTER STATION', label: 'ART CENTER STATION' },
@@ -68,20 +69,19 @@ class App extends Component {
               {item.label}
             </div>
           }
-          ref='input';
+          ref='input'
           value={this.state.station}
           onChange={ e => this.setState({ station: e.target.value })}
           onSelect={ station => this.setState({ station })}
           onFocus={(e) => { console.log(this.refs.input)}}
           />
-
-          <div className="style-me">
+        </div>
+        <div className="style-me">
           <Dashboard direction={this.state.direction} station={this.state.station}/>
         </div>
       </div>
     );
   }
-
   _update = (event) => {
     this.setState({
       direction: event.target.value,

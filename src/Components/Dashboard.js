@@ -5,9 +5,10 @@ const getMartaData = () => {
     return fetch('http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1', {
         method: 'get'
     }).then( function (res) {
+        console.log(res);
         return res.json()
     }).catch( function (err) {
-        alert(err);
+        // console.log(err);
     });
 }
 
@@ -24,22 +25,22 @@ class Dashboard extends Component {
     componentWillMount() {
         this.martaDataGrabber = setInterval( () => {
             getMartaData().then((jsonData) => {
-                let new_data = [];
-                let emptySignal = [{DESTINATION: 'No trains available at this time.', NEXT_ARR: ' '}];
-                jsonData.map( (data) => {
-                    if (data.DIRECTION == this.props.direction && data.STATION == this.props.station) {
+                let new_data = []
+                let emptySignal = [{DESTINATION: 'No trains available at this time.', NEXT_ARR: ' '}]
+                jsonData.map((data) => {
+                    if (data.DIRECTION === this.props.direction && data.STATION === this.props.station) {
                         new_data.push(data)
                     }
                     return data;
                 })
                 if (new_data.length > 0) {
-                    if (new_data.length >= this.state.martaData.length || new_data[0].DIRECTION != this.state.martaData[0].DIRECTION) {
+                    if (new_data.length >= this.state.martaData.length || new_data[0].DIRECTION !== this.state.martaData[0].DIRECTION) {
                         this.setState({
                             martaData: new_data,
                             emptyArray: 0
                         });
                     }
-                } else if (new_data.length == 0) {
+                } else if (new_data.length === 0) {
                     let size = this.state.emptyArray + 1;
                     this.setState({
                         emptyArray: size

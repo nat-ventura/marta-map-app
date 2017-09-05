@@ -1,11 +1,12 @@
 import React from 'react';
 
 const Countdown = ({time, localTime}) => {
-    if (time.length == 1) {
+    if (time.length === 1) {
         return <div></div>
     }
-    let localTimeString = localTime.toLocalTimeString() // !!!!!!! ??!?!
-    if (localTimeString.length == 10) {
+    // debugger;
+    let localTimeString = localTime.toLocaleTimeString() // !!!!!!! ??!?!
+    if (localTimeString.length === 10) {
         localTimeString = '0' + localTimeString
     }
     let localHour = parseInt(localTimeString.slice(0, 2), 10);
