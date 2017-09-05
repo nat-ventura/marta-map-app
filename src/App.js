@@ -55,11 +55,40 @@ class App extends Component {
             { id: 'bar', label: 'bar' },
             { id: 'baz', label: 'baz' }
           ]}
-          shouldItemRender = {(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+          shouldItemRender = { (item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1 }
+          getItemValue= { item => item.label }
+          renderItem={ (item, highlighted) =>
+            <div
+              key = {item.id}
+              style={
+                { backgroundColor: highlighted ? '#eee' : 'transparent' }
+              }
+            >
+              {item.label}
+            </div>
+          }
+          ref = 'input';
+          value = {this.state.station}
+          onChange = { e => this.setState({ station: e.target.value })}
+          onSelect = { station => this.setState({ station })}
+          onFocus = {(e)} => { console.log(this.refs.input)}}
+          />
       </div>
-      // everything has to be inside one div-- or one main element
+
+      <div className="style-me">
+        <MartaDashboard direction={this.state.direction} station={this.state.station}/>
+      </div>
+    </div>
     );
   }
+  </div>
+
+  _update = (event) => {
+    this.setState({
+      direction: event.target.value,
+    })
+  }
 }
+
 
 export default App;
