@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Autocomplete from 'react-autocomplete';
 import Dashboard from './Components/Dashboard.js';
 import './styles/main.css';
 
@@ -18,7 +19,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        this will be a marta map
         <div>
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
@@ -74,12 +74,11 @@ class App extends Component {
           onSelect={ station => this.setState({ station })}
           onFocus={(e) => { console.log(this.refs.input)}}
           />
-      </div>
 
-      <div className="style-me">
-        <Dashboard direction={this.state.direction} station={this.state.station}/>
+          <div className="style-me">
+          <Dashboard direction={this.state.direction} station={this.state.station}/>
+        </div>
       </div>
-    </div>
     );
   }
 
