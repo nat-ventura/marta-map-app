@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Projects from './Components/Projects';
-import './App.css';
+import Dashboard from './Components/Dashboard.js';
+import './styles/main.css';
 
 class App extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ const getMartaData = () => {
 }
 
 class Dashboard extends Component {
-    constructor(prop) {
+    constructor(props) {
         super(props);
         this.state = {
             martaData: [],
@@ -64,7 +64,7 @@ class Dashboard extends Component {
     render() {
         let martaOutput = this.state.martaData.map( (item) => {
             return (
-                <Card station={datum.DESTINATION} time={item.NEXT_ARR} localTime={this.state.localTime}/>
+                <Card station={item.DESTINATION} time={item.NEXT_ARR} localTime={this.state.localTime}/>
             )
         });
 
