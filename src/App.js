@@ -77,7 +77,7 @@ class App extends Component {
       </div>
 
       <div className="style-me">
-        <MartaDashboard direction={this.state.direction} station={this.state.station}/>
+        <Dashboard direction={this.state.direction} station={this.state.station}/>
       </div>
     </div>
     );
