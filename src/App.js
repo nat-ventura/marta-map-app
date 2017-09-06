@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
 import './styles/main.css';
 
@@ -7,17 +8,17 @@ import Bob from './Components/Bob.js';
 import Blub from './Components/Blub.js';
 import Hloob from './Components/Hloob.js';
 
-const navs = [
-  <Bob />,
-  <Blub />,
-  <Hloob />
-]
+// const navs = [
+//   <Bob />,
+//   <Blub />,
+//   <Hloob />
+// ]
 
-const navNames = [
-  'Bob',
-  'Blub',
-  'Hloob'
-]
+// const navNames = [
+//   'Bob',
+//   'Blub',
+//   'Hloob'
+// ]
 
 class App extends Component {
   constructor(props) {
@@ -37,22 +38,37 @@ class App extends Component {
   // better to use this function than to leave it in the constructor
 
   render() {
-    const componentToRender = navs[this.state.currentNav];
-    const myNavs = navs.map( (comp, idx) => (
-      <ul><a href="#" onClick={(event) => {
-        event.preventDefault();
-        this._changeNav(idx);
-        }}>{navNames[idx]}</a></ul>
-    ));
+    // const componentToRender = navs[this.state.currentNav];
+    // const myNavs = navs.map( (comp, idx) => (
+    //   <ul><a href="#" onClick={(event) => {
+    //     event.preventDefault();
+    //     this._changeNav(idx);
+    //     }}>{navNames[idx]}</a></ul>
+    // ));
 
     return (
       <div className="App">
         <div>
-        <div>
-          {/* for building a router */}
-          {myNavs}
-        </div>
-        {componentToRender}
+        <BrowserRouter>
+          <div>
+            <ul>
+              <Link to='/'> go to bob </Link>
+            </ul>
+            <ul>
+              <Link to='/blub'> go to blub </Link>
+            </ul>
+            <ul>
+              <Link to='/hloob'> go to hloob </Link>
+            </ul>
+            {/* <Switch> */}
+            <Route exact path='/' component={Bob} />
+            <Route exact path='/blub' component={Blub} />
+            <Route exact path='/hloob' component={Hloob} />
+          {/* </Switch> */}
+          </div>
+
+        {/* {componentToRender} */}
+        </BrowserRouter>
         <Autocomplete
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
@@ -122,7 +138,7 @@ class App extends Component {
   }
 
   _changeNav = (navValue) => {
-    console.log('you clicked me');
+    // console.log('you clicked me');
     this.setState({
       currentNav: navValue
     });
