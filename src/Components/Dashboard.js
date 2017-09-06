@@ -7,7 +7,7 @@ const MARTA_URL = 'http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTr
 const getMartaData = () => {
     return axios.get(MARTA_URL)
         .then( (res) => {
-            console.log(res);
+            // console.log(res);
             return res.data;
         })
 

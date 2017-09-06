@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
 import Autocomplete from 'react-autocomplete';
-import Dashboard from './Components/Dashboard.js';
 import './styles/main.css';
+
+import Dashboard from './Components/Dashboard.js';
+import Bob from './Components/Bob.js';
+import Blub from './Components/Blub.js';
+import Hloob from './Components/Hloob.js';
+
+const navs = [
+  <Bob />,
+  <Blub />,
+  <Hloob />
+]
+
+const navNames = [
+  'Bob',
+  'Blub',
+  'Hloob'
+]
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentNav: 0
+    }
   }
 
   componentWillMount(){
@@ -17,9 +37,22 @@ class App extends Component {
   // better to use this function than to leave it in the constructor
 
   render() {
+    const componentToRender = navs[this.state.currentNav];
+    const myNavs = navs.map( (comp, idx) => (
+      <ul><a href="#" onClick={(event) => {
+        event.preventDefault();
+        this._changeNav(idx);
+        }}>{navNames[idx]}</a></ul>
+    ));
+
     return (
       <div className="App">
         <div>
+        <div>
+          {/* for building a router */}
+          {myNavs}
+        </div>
+        {componentToRender}
         <Autocomplete
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
@@ -86,6 +119,13 @@ class App extends Component {
     this.setState({
       direction: event.target.value,
     })
+  }
+
+  _changeNav = (navValue) => {
+    console.log('you clicked me');
+    this.setState({
+      currentNav: navValue
+    });
   }
 }
 
