@@ -10,7 +10,7 @@ const getMartaData = () => {
             // console.log(res);
             return res.data;
         })
-        
+
 }
 
 class Dashboard extends Component {
@@ -32,7 +32,7 @@ class Dashboard extends Component {
                     if (trainObject.DIRECTION === this.props.direction && trainObject.STATION === this.props.station) {
                         trainObjectArray.push(trainObject)
                     }
-                    console.log(trainObject);
+                    // console.log(trainObject);
                     return trainObject;
                 })
                 if (trainObjectArray.length > 0) {

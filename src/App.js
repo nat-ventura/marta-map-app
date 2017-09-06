@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
 import './styles/main.css';
 
-import Dashboard from './Components/Dashboard.js';
+// import Dashboard from './Components/Dashboard.js';
 import BigMap from './Components/BigMap.js';
 import Bob from './Components/Bob.js';
 import Blub from './Components/Blub.js';
@@ -126,7 +126,7 @@ class App extends Component {
         </div>
         <div className="style-me">
           <BigMap />
-          <Dashboard direction={this.state.direction} station={this.state.station}/>
+          {/* <Dashboard direction={this.state.direction} station={this.state.station}/> */}
         </div>
       </div>
     );
