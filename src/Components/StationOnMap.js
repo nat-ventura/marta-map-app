@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Card from './Card.js';
+import Countdown from './Countdown.js';
+import Time from './Time.js';
+import Destination from './Destination.js';
 import axios from 'axios';
 
 const MARTA_URL = 'http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1';
@@ -10,10 +12,9 @@ const getMartaData = () => {
             // console.log(res);
             return res.data;
         })
-        
-}
+    }
 
-class Dashboard extends Component {
+class StationOnMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -68,8 +69,13 @@ class Dashboard extends Component {
     render() {
         let trainArrivals = this.state.martaData.map( (trainObject) => {
             return (
-                <Card station={trainObject.DESTINATION} time={trainObject.NEXT_ARR} localTime={this.state.localTime}/>
-            )
+                <div className="card">
+                    <div className="card-block">
+                        <Destination destination={this.props.station} />
+                        <Time time={this.props.time}/>
+                        <Countdown time={this.props.time} localTime={this.props.localTime}/>
+                    </div>
+                </div>            )
         });
 
         return (
@@ -83,4 +89,4 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard;
+export default StationOnMap;

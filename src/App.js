@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
 import './styles/main.css';
 
 import Dashboard from './Components/Dashboard.js';
+import BigMap from './Components/BigMap.js';
 import Bob from './Components/Bob.js';
 import Blub from './Components/Blub.js';
 import Hloob from './Components/Hloob.js';
@@ -102,9 +103,7 @@ class App extends Component {
             { id: 'OAKLAND CITY STATION', label: 'OAKLAND CITY STATION' },
             { id: 'SANDY SPRINGS STATION', label: 'SANDY SPRINGS STATION' },
             { id: 'WEST END STATION', label: 'WEST END STATION' },
-            { id: 'WEST LAKE STATION', label: 'WEST LAKE STATION' },
-            { id: 'bar', label: 'bar' },
-            { id: 'baz', label: 'baz' }
+            { id: 'WEST LAKE STATION', label: 'WEST LAKE STATION' }
           ]}
           shouldItemRender = { (item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1 }
           getItemValue= { item => item.label }
@@ -126,6 +125,7 @@ class App extends Component {
           />
         </div>
         <div className="style-me">
+          <BigMap />
           <Dashboard direction={this.state.direction} station={this.state.station}/>
         </div>
       </div>
