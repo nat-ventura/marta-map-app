@@ -85,10 +85,17 @@ class BigMap extends Component {
                     hm this is making me think that each station on map
                     should be a dictionary with all of the train_ids.
                     */}
-                    {Object.keys(STATION_DICT).map( (station, idx) => {
+                    {/* {Object.keys(STATION_DICT).map( (station, idx) => {
                         return (
                             <div key={idx}>
                                 <StationOnMap station={station}/>
+                            </div>
+                        )
+                    })} */}
+                    {Object.keys(STATION_DICT).map( (station, idx) => {
+                        return (
+                            <div key={idx}>
+                                <StationOnMap station={station} />
                             </div>
                         )
                     })}
