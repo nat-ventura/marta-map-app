@@ -8,8 +8,9 @@
 * MARTA API
 
 ## Development Process
-* [1. Concept](#1-concept)
-* [2. Initial Planning](#2-initial-planning)
+[1. Concept](#1-concept)
+[2. Initial Planning](#2-initial-planning)
+[2. User Interface Development](#2-user-interface-development)
 
 ### 1. Concept
 
@@ -81,3 +82,11 @@ This is what my render looks like right now... just iterating once through a sta
         )
     }
 ```
+
+### 3. User Interface Development
+
+[9-7-17]
+
+- need to arrange stations by location on map
+- filter `TRAIN_ID`s for uniques
+- take the trains that come in and sort by 10 soonest via arrival time
