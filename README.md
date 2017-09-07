@@ -29,18 +29,20 @@ A live updating MARTA map where you can see trains coming and going at any selec
 
 Accessing the API:
 
-`const getMartaData = () => {
+```
+const getMartaData = () => {
     return axios.get(MARTA_URL)
         .then( (res) => {
             return res.data;
         })
     }
-`
+```
 
 For each `trainObject` (the JSON object that I'll pull from the MARTA API), I will push `trainObject.TRAIN_ID` to the array at `STATION_DICTIONARY[trainObject.STATION]`:
 
 
-`   componentWillMount() {
+```
+componentWillMount() {
         this.intervalSetter = setInterval( () => {
             getMartaData().then((jsonData) => {
                 jsonData.map((trainObject) => {
@@ -52,7 +54,7 @@ For each `trainObject` (the JSON object that I'll pull from the MARTA API), I wi
             }, 1000);
         });
     }
-`
+```
 
 I need to figure out how to create a div of each `TRAIN_ID` within each `StationOnMap` component.
 
@@ -64,7 +66,7 @@ But if I do make that move ^ then where do I put the divs or components for addi
 
 This is what my render looks like right now... just iterating once through a static list of station names and putting them on the DOM...
 
-`
+```
     render() {
         return (
                 <div>
@@ -78,4 +80,4 @@ This is what my render looks like right now... just iterating once through a sta
                 </div>
         )
     }
-`
+```
