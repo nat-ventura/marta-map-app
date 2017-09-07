@@ -54,52 +54,27 @@ class BigMap extends Component {
             martaData: [],
             localTime: new Date(),
             emptyArray: 0,
-            stations: {
-                'AIRPORT STATION': [],
-                'ART CENTER STATION': [],
-                'ASHBY STATION': [],
-                'AVONDALE STATION': [],
-                'BANKHEAD STATION': [],
-                'BROOKHAVEN STATION': [],
-                'BUCKHEAD STATION': [],
-                'CHAMBLEE STATION': [],
-                'CIVIC CENTER STATION': [],
-                'COLLEGE PARK STATION': [],
-                'DECATUR STATION': [],
-                'PEACHTREE CENTER STATION': [],
-                'DORAVILLE STATION': [],
-                'DUNWOODY STATION': [],
-                'EAST LAKE STATION': [],
-                'EDGEWOOD STATION': [],
-                'FIVE POINTS STATION': [],
-                'GARNETT STATION': [],
-                'H. E. HOLMES STATION': [],
-                'INDIAN CREEK STATION': [],
-                'KENSINGTON STATION': [],
-                'KING MEMORIAL STATION': [],
-                'LENOX STATION': [],
-                'LINDBERGH CENTER STATION': [],
-                'MEDICAL CENTER STATION': [],
-                'MIDTOWN STATION': [],
-                'NORTH AVENUE STATION': [],
-                'NORTH SPRINGS STATION': [],
-                'OAKLAND CITY STATION': [],
-                'SANDY SPRINGS STATION': [],
-                'WEST END STATION': [],
-                'WEST LAKE STATION': []
-                }
+            stations: {}
         };
     }
 
     componentWillMount() {
         this.intervalSetter = setInterval( () => {
             getMartaData().then((jsonData) => {
-                jsonData.map((trainObject) => {
-                    this.state.stations[trainObject.STATION].push(trainObject.TRAIN_ID);
+                let trainIdArray = [];
+                let latestStations = {};
+                jsonData.forEach((trainObject) => {
+                    // debugger;
+                    if (Object.keys(latestStations).includes(trainObject.STATION)) {
+                        latestStations[trainObject.STATION].push(trainObject.TRAIN_ID);
+                    } else {
+                        latestStations[trainObject.STATION] = [trainObject.TRAIN_ID];
+                    }
                 });
                 // console.log(STATION_DICT);
                 this.setState({
-                    localTime: new Date()
+                    localTime: new Date(),
+                    stations: latestStations
                 })
             }, 1000);
         });
@@ -115,7 +90,7 @@ class BigMap extends Component {
                     {Object.keys(this.state.stations).map( (station, idx) => {
                         return (
                             <div key={idx}>
-                                <StationOnMap station={station} />
+                                <StationOnMap station={station} trains={this.state.stations[station]} />
                             </div>
                         )
                     })}
@@ -125,18 +100,3 @@ class BigMap extends Component {
 }
 
 export default BigMap;
-
-
-
-
-                    {/*
-                    hm this is making me think that each station on map
-                    should be a dictionary with all of the train_ids.
-                    */}
-                    {/* {Object.keys(STATION_DICT).map( (station, idx) => {
-                        return (
-                            <div key={idx}>
-                                <StationOnMap station={station}/>
-                            </div>
-                        )
-                    })} */}
