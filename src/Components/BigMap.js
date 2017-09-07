@@ -4,7 +4,7 @@ import StationOnMap from './StationOnMap.js';
 import axios from 'axios';
 
 const MARTA_URL = 'http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=2c514350-0c26-47dd-b872-7936af81c8e1';
-const STATIONS = {
+const STATION_DICT = {
                     'AIRPORT STATION': [],
                     'ART CENTER STATION': [],
                     'ASHBY STATION': [],
@@ -39,7 +39,6 @@ const STATIONS = {
                     'WEST LAKE STATION': []
                     }
 
-
 const getMartaData = () => {
     return axios.get(MARTA_URL)
         .then( (res) => {
@@ -61,79 +60,32 @@ class BigMap extends Component {
     componentWillMount() {
         this.martaDataGrabber = setInterval( () => {
             getMartaData().then((jsonData) => {
-                let trainObjectArray = []
-                let emptySignal = [{DESTINATION: 'No trains available at this time.', NEXT_ARR: ' '}]
                 jsonData.map((trainObject) => {
-                    if (trainObject.DIRECTION === this.props.direction && trainObject.STATION === this.props.station) {
-                        trainObjectArray.push(trainObject)
+                    if (Object.keys(STATION_DICT).includes(trainObject.STATION)) {
+                        STATION_DICT[trainObject.STATION].push(trainObject.TRAIN_ID);
                     }
-                    // console.log(trainObject);
-                    return trainObject;
+                });
+                console.log(STATION_DICT);
+                this.setState({
+                    localTime: new Date()
                 })
-                if (trainObjectArray.length > 0) {
-                    if (trainObjectArray.length >= this.state.martaData.length || trainObjectArray[0].DIRECTION !== this.state.martaData[0].DIRECTION) {
-                        this.setState({
-                            martaData: trainObjectArray,
-                            emptyArray: 0
-                        });
-                        // console.log('************************ HELLO HELLO', this.state.martaData)
-                    }
-                } else if (trainObjectArray.length === 0) {
-                    let size = this.state.emptyArray + 1;
-                    this.setState({
-                        emptyArray: size
-                    })
-                    if (this.state.emptyArray >= 3) {
-                        this.setState({
-                            martaData: emptySignal
-                        })
-                    }
-                }
-            })
-            this.setState({
-                localTime: new Date()
-            })
-        }, 1000);
+            }, 1000);
+        });
     }
 
     componentWillUnmount() {
         clearInterval(this.martaDataGrabber);
     }
 
-    // renderStation = () => {
-    //     console.log('station')
-    //     STATION_LIST.map( (station, idx) => {
-    //         console.log(station)
-    //         return (
-    //             <div key={idx}>
-    //                 <StationOnMap station={station}/>
-    //             </div>
-    //         )
-    //     }
-    // )
-    // }
-
     render() {
         return (
             <div className='row'>
                 <div className='style-me'>
                     {/*
-                    right now this is mapping through the static
-                    station list-- but the part that actually needs
-                    to be live/checking-- is if received trainObjects
-                    have the same station ID as the current station.
-                    if trainObject.station === STATIONS[trainObject.station]:
-                        STATIONS[trainObject.station].push(trainObject.train_id)
-                    if trainObject.station === STATION_LIST[i] {
-                       then append that trainObject's TRAIN_ID
-                       to the STATION_ON_MAP div.
-                       can you make headings values in a dictionary?
-                    
-                    }
                     hm this is making me think that each station on map
                     should be a dictionary with all of the train_ids.
                     */}
-                    {Object.keys(STATIONS).map( (station, idx) => {
+                    {Object.keys(STATION_DICT).map( (station, idx) => {
                         return (
                             <div key={idx}>
                                 <StationOnMap station={station}/>
@@ -144,7 +96,6 @@ class BigMap extends Component {
             </div>
         )
     }
-
 }
 
 export default BigMap;
