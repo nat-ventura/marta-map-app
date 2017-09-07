@@ -8,11 +8,9 @@
 * MARTA API
 
 ## Development Process
-[1. Concept](#1-concept)
-
-[2. Initial Planning](#2-initial-planning)
-
-[3. User Interface Development](#3-user-interface-development)
+* [1. Concept](#1-concept)
+* [2. Initial Planning](#2-initial-planning)
+* [3. User Interface Development](#3-user-interface-development)
 
 ### 1. Concept
 
