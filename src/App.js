@@ -5,9 +5,9 @@ import './styles/main.css';
 
 // import Dashboard from './Components/Dashboard.js';
 import BigMap from './Components/BigMap.js';
-import Bob from './Components/Bob.js';
-import Blub from './Components/Blub.js';
-import Hloob from './Components/Hloob.js';
+// import Bob from './Components/Bob.js';
+// import Blub from './Components/Blub.js';
+// import Hloob from './Components/Hloob.js';
 
 // const navs = [
 //   <Bob />,
@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-        <BrowserRouter>
+        {/* <BrowserRouter>
           <div>
             <ul>
               <Link to='/'> go to bob </Link>
@@ -61,15 +61,12 @@ class App extends Component {
             <ul>
               <Link to='/hloob'> go to hloob </Link>
             </ul>
-            {/* <Switch> */}
             <Route exact path='/' component={Bob} />
             <Route exact path='/blub' component={Blub} />
             <Route exact path='/hloob' component={Hloob} />
-          {/* </Switch> */}
           </div>
 
-        {/* {componentToRender} */}
-        </BrowserRouter>
+        </BrowserRouter> */}
         <Autocomplete
           items = {[
             { id: 'AIRPORT STATION', label: 'AIRPORT STATION' },
