@@ -90,3 +90,9 @@ This is what my render looks like right now... just iterating once through a sta
 - need to arrange stations by location on map
 - filter `TRAIN_ID`s for uniques
 - take the trains that come in and sort by 10 soonest via arrival time
+
+[9-10-17]
+
+- Right now there are too many requests to the API, which is causing 'insufficient resources' errors. I think only printing/identifying the 10 ten latest trains to come into any given station.
+- I think I could try to make it so clicking each stationOnMap div reveals the trains currently in each station.
+- I think it could also be helpful to print a countdown for when each station will be leaving to the DOM.
