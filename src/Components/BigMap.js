@@ -64,7 +64,7 @@ class BigMap extends Component {
                 let trainIdArray = [];
                 let latestStations = {};
                 jsonData.forEach((trainObject) => {
-                    // debugger;
+                    // console.log(trainObject);
                     if (Object.keys(latestStations).includes(trainObject.STATION)) {
                         latestStations[trainObject.STATION].push(trainObject.TRAIN_ID);
                     } else {

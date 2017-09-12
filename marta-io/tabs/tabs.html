@@ -1,0 +1,24 @@
+<ion-footer>
+  <ion-navbar class="toolbar-buttons">
+    <ion-row>
+      <ion-col>
+        <button class="toolbar-button" ion-button [color]="isTwitter()" (click)="pushTwitter()">
+          <ion-icon name="logo-twitter"></ion-icon>
+          Alerts
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="toolbar-button" ion-button [color]="isHome() " (click)="pushHome()">
+          <ion-icon name="home"></ion-icon>
+          Home
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="toolbar-button" ion-button [color]="isHelp()" (click)="pushHelp()">
+          <ion-icon name="help-buoy"></ion-icon>
+          Help
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-footer>
