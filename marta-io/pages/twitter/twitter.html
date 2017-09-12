@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Tweets
+        </ion-title>
+    </ion-navbar>
+</ion-header><ion-content padding>
+    <ion-refresher (ionRefresh)="reloadTweets($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div>
+        <div *ngIf="emptyResponse" class="feedbox">
+            <h3>No Tweets <ion-icon name="code"></ion-icon></h3>
+            <p>
+                If this persists, you could try
+                <a target="_blank" href="https://github.com/jakswa/martaionic/issues">bugging Jake here</a>.
+            </p>
+        </div>
+        <div *ngIf="tweetError" class="feedbox">
+            <h4 *ngIf="error.status != 500" [textContent]="error.statusText"></h4>
+            <h4 *ngIf="error.status == 500">Oops. Jake broke something.</h4>
+            <blockquote [textContent]="error.message"></blockquote>
+            <p>
+                Trying again shortly.
+                <span>
+                    If this persists and you're sad, you could try
+                    <a target="_system" href="https://github.com/jakswa/martaionic/issues">bugging Jake here</a>.
+                </span>
+            </p>
+        </div>
+        <ion-spinner *ngIf="loading" icon="lines"></ion-spinner>
+    </div>
+        <div class="item-divider connectivity feedbox" *ngIf="connectionProblem">
+            <h3><ion-icon name="information-circle"></ion-icon> Problems connecting. Trying again shortly.</h3>
+        </div>
+    <!-- https://devdactic.com/ionic-twitter-integration/-->
+    <div class="bottom-padding">
+    <ion-card *ngFor="let tweet of tweets">
+        <ng-container *ngIf="tweet.retweeted_status">
+            <ion-item text-wrap>
+                <ion-avatar item-left (click)="openTwitter(tweet.retweeted_status.user.screen_name)">
+                    <img [src]="tweet.retweeted_status.user.profile_image_url">
+                </ion-avatar>
+                <p class="retweet">
+                    <span [textContent]="tweet.user.name" class="clickable" (click)="openTwitter(tweet.user.screen_name)"></span>
+                    Retweeted
+                </p>
+                <p class="user-header">
+                    <span [textContent]="tweet.retweeted_status.user.name" class="clickable" (click)="openTwitter(tweet.retweeted_status.user.screen_name)"></span>
+                    <span [textContent]="'@' + tweet.retweeted_status.user.screen_name" class="text-grey clickable" (click)="openTwitter(tweet.retweeted_status.user.screen_name)"></span>
+                    <abbr [textContent]="dateForTweet(tweet.retweeted_status.created_at)" [title]="fullDateForTweet(tweet.retweeted_status.created_at)" class="text-grey"
+                          (click)="toastDate(tweet.retweeted_status.created_at)"></abbr>
+                </p>
+                <p [innerHtml]="tweet.retweeted_status.full_text"></p>
+            </ion-item>
+
+            <img [src]="tweet.retweeted_status.extended_entities.media[0].media_url+':small'" *ngIf="tweet.retweeted_status.extended_entities" class="twitter-image">
+        </ng-container>
+        <ng-container *ngIf="!tweet.retweeted_status">
+            <ion-item text-wrap>
+                <ion-avatar item-left (click)="openTwitter(tweet.user.screen_name)">
+                    <img [src]="tweet.user.profile_image_url">
+                </ion-avatar>
+                <p class="user-header">
+                <span [textContent]="tweet.user.name" class="clickable" (click)="openTwitter(tweet.user.screen_name)"></span>
+                <span [textContent]="'@' + tweet.user.screen_name" class="text-grey clickable" (click)="openTwitter(tweet.user.screen_name)"></span>
+                <abbr [textContent]="dateForTweet(tweet.created_at)" [title]="fullDateForTweet(tweet.created_at)" class="text-grey"
+                (click)="toastDate(tweet.created_at)"></abbr>
+                </p>
+                <p [innerHtml]="tweet.full_text"></p>
+            </ion-item>
+
+            <img [src]="tweet.extended_entities.media[0].media_url+':small'" *ngIf="tweet.extended_entities" class="twitter-image">
+        </ng-container>
+
+    </ion-card>
+    </div>
+</ion-content><tabs></tabs>
